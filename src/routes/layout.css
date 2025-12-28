@@ -1,3 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('../lib/assets/main.css');
+
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+
+
+@theme {
+  /* 2. Colors: Use --color-* prefix */
+  --color-primary: #4169E1;
+  --color-secondary: #FFD700;
+  --color-accent: #F5F5DC;
+  --color-background-light: #F5F5DC;
+  --color-background-dark: #101522;
+
+  /* 3. Font Families: Use --font-* prefix */
+  --font-display: "Manrope", sans-serif;
+  --font-body: "Manrope", sans-serif;
+
+  /* 4. Border Radius: Use --radius-* prefix */
+  /* Note: --radius-default overrides the standard 'rounded' class */
+  --radius-default: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+}

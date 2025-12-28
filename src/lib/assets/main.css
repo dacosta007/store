@@ -1,0 +1,11 @@
+
+@font-face {
+  font-family: Manrope;
+  src: format('/fonts/Manrope-Regular.ttf'), format('Manrope-SemiBold.ttf');
+}
+
+
+@keyframes clickBtnEffect {
+  from { scale: 0.85; }
+  to { scale: 1; }
+}
