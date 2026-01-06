@@ -1,9 +1,15 @@
-import { isValidEmail } from '$lib';
 import { fail } from '@sveltejs/kit';
+import { isValidEmail } from '$lib';
+import { products } from '$lib/assets/mockProducts'
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-  return {};
+  // get top recent list of products
+  const recentProducts = products
+
+  return {
+    productList: recentProducts
+  };
 };
 
 
@@ -12,8 +18,6 @@ export const actions = {
   newsletter: async ({ request }) => {
     const formData = await request.formData();
     const email = formData.get('email');
-
-    
 
     if (!isValidEmail(email)) {
       return fail(400, { error: true, message: 'Invalid email address.' })

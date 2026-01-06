@@ -51,7 +51,7 @@
   <div class="flex items-center gap-8">
     <div class="flex items-center gap-4 text-primary dark:text-secondary">
       <!-- site logo -->
-      <span class="lni lni-funnel-1 text-2xl"></span>
+      <img src="/site_logo.png" class="size-12 object-center object-contain" alt="Royal Scents Logo">
       <h2 class="not-sm:hidden text-blue-950 text-xl font-bold leading-tight tracking-[-0.015em]">Royal Scents</h2>
     </div>
   </div>

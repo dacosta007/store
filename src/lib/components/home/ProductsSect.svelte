@@ -1,50 +1,59 @@
 <script>
-  let { products=[] } = $props();
+  import { formatMoney } from '$lib'
+  let { products=[], addToCartFunc, previewProdtFunc } = $props();
 
-  const tempProducts = [
-    {
-      imgs: ['https://lh3.googleusercontent.com/aida-public/AB6AXuAryhMKWr9XvvLtCdZ7ixA8VkplbS6J3rKMBlWQPSVw6k57fnyQPYF_ktzZcp5bPllrGQUPC340D5ybdIhEj7jPgl55-Prpn8zciQ7HWQs2volQJC2Tz1hgYrQIWuUlATNFDIy6I1el_N_pkFRJFmmD-_CQkT3TzNzl2uHmmi_g3NxaLsYEjbUIQltKF2IU6ZGKQkOgec_Ykai8A7hRk3Jv6g_-_KVzL6qCpp595_gdBRmxq45gdxUtcy_ZDFV4oZMVPDzJ2iWwTzUo'],
-      name: 'Ocean Breeze',
-      desc: 'A fresh and invigorating scent with notes of citrus and sea salt.',
-      price: '$75.00'
-    },
-    {
-      imgs: ['https://lh3.googleusercontent.com/aida-public/AB6AXuDfF0iH3NEAo1d4at_-3JGcJHOlneE6SX-At9lEzJlNsLHIJXtEIAjXbIA-e3ZxcxjPuIF6QDclD8Rt18_gVvzJXwrpT_ys1wek8T1gnVx2y9vYbHSoUtHgu9h4EWsXP8kW10vOPAI4yyEPmRjBh8XJlIM9BfDFDrpF31SEuDCz0vBAgHqt9v6eaxuX6u53YTXXvwNZpsMEEshe8KrV1JfDoCqeB220TDVtDjDnzZPByWOaktNy9IUg1gkzoDu68sNOPxiHVbJSAbAd'],
-      name: 'Golden Hour',
-      desc: 'A warm and radiant fragrance with hints of vanilla and amber.',
-      price: '$85.00'
-    },
-    {
-      imgs: ['https://lh3.googleusercontent.com/aida-public/AB6AXuBZjnrUO5PUyA-qse6guYqIV7iZ1imubCd__3A6mX-MkSPcmoDpfzD53p92nbt8moOy8ZABlXl0YkFl38fUsQ_McKtYAPWoP6TMay60zhkMuQ9wDvNiODJF7vELcsb2BOzOgM3MjyJ5pRlEHjWPala4fNPoBbg75j0IYXNsZYcmmisejy-e9_b8SoeGrxxE3wrw_b2qNiBjmqUMMVECexP-SnraQ_ba7RM7Byaoy2VNsmRRCljbKeirUB6D1rovlB_vOr-fEfcIyGlx'],
-      name: 'Midnight Bloom',
-      desc: 'A mysterious and alluring scent with floral and musky notes.',
-      price: '$90.00'
-    },
-    {
-      imgs: ['https://lh3.googleusercontent.com/aida-public/AB6AXuA24bR72L3ZESGmrwm6dPCCtyJ9F8JQ9AxXAivYpeIv11tt6bJneU8NhA8DPNZpaqM1ff2fq11yovCkcEmmyD4uoOJ_a0vbiQisQNgi_SrVqAIfJAYEu8m-IFohGOngW_2SQGVtRGxAMTvcOqFLyUtohLWt751j0lI4pr_gvVCOeRi0IVRLc1BdhV1J4MVAOAF0LyPp-vGvtasHYw0EnH6Ivd4JeLIpSYg2UTEbNO4d6QpvyB3vFIVm1lBSgnUc18yq2o39--OdYYmP'],
-      name: 'Desert Rose',
-      desc: 'A sweet and spicy fragrance with notes of rose and sandalwood.',
-      price: '$80.00'
-    }
-  ];
 </script>
 
 
 <!-- Product snippet -->
-{#snippet prodt(img, name, desc, price)}
-  <div class="snap-start flex h-full flex-1 flex-col gap-4 rounded-xl bg-background-dark shadow-lg">
+{#snippet prodt(id, img, name, description, price)}
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div 
+    class="
+      snap-start relative isolate flex h-full flex-1 flex-col gap-4 rounded-xl bg-background-dark shadow-lg 
+      product cursor-pointer
+    "
+  >
     <!-- product img -->
-    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-t-xl flex flex-col" data-alt={name} style='background-image: url("{img}");'></div>
+    <div 
+      onclick={previewProdtFunc} 
+      data-product="{id}" 
+      class="
+        w-full bg-center bg-no-repeat aspect-square bg-cover rounded-t-xl flex flex-col
+      " 
+      data-alt={name} 
+      style='background-image: url("{img}");'
+    ></div>
     
     <!-- product details -->
     <div class="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
-      <div>
-        <p class="text-white text-lg font-bold leading-normal">{name}</p>
-        <p class="text-gray-400 text-sm font-normal leading-normal font-body">{desc}</p>
-        <p class="text-secondary text-lg font-bold mt-2">{price}</p>
+      <div onclick={previewProdtFunc} data-product="{id}">
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <p class="text-white text-lg font-bold leading-normal" onclick={previewProdtFunc} data-product="{id}">
+          {name}
+        </p>
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <p 
+          onclick={previewProdtFunc} data-product="{id}"
+          class="
+            text-gray-400 text-sm font-normal leading-normal font-body line-clamp-2 sm:line-clamp-2 lg:line-clamp-2
+          "
+        >
+          {description}
+        </p>
+        <p class="text-secondary text-lg font-bold mt-2">{formatMoney(price)}</p>
       </div>
 
-      <button class="flex gap-1.5 w-full min-w-21 max-w-120 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary/20 text-secondary text-sm font-bold leading-normal tracking-[0.015em]">
+      <button 
+        type="button" 
+        data-prodt-id="{id}" 
+        onclick={addToCartFunc}
+        class="
+          flex gap-1.5 w-full min-w-21 max-w-120 cursor-pointer items-center justify-center overflow-hidden rounded-lg 
+          h-10 px-4 bg-secondary/20 text-secondary text-sm font-bold leading-normal tracking-[0.015em] relative z-20
+        "
+      >
         <i class="lni lni-cart-1"></i> 
         <span class="truncate">Add to Cart</span>
       </button>
@@ -69,10 +78,9 @@
       overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden
     "
   >
-    {#each (products.length > 0) ? products : tempProducts as product}
-      {@render prodt(product.imgs[0], product.name, product.desc, product.price)}
+    {#each products as { id, name, imgs, description, price }}
+      {@render prodt(id, imgs[0], name, description, price)}
     {/each}
-    
   </div>
 
   <!-- C.T.A btn -->
@@ -96,7 +104,17 @@
 
 
 <style>
-  a[href]:active {
+  a[href]:active, 
+  button:active {
     animation: clickBtnEffect 0.3s ease-in-out;
+  }
+
+  .product:active {
+    animation: clickProdt 0.3s linear;
+  }
+
+  @keyframes clickProdt {
+    from { scale: 0.97 } 
+    to { scale: 1 }
   }
 </style>

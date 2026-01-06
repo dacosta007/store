@@ -26,3 +26,11 @@
   --radius-xl: 0.75rem;
   --radius-full: 9999px;
 }
+
+@layer base {
+  body {
+    scroll-behavior: smooth;
+
+    @apply font-body
+  }
+}
